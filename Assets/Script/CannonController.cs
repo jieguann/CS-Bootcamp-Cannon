@@ -20,6 +20,8 @@ public class CannonController : MonoBehaviour
     [SerializeField] private float projectileShootingForce;
 
 
+    RaycastHit[] m_Results = new RaycastHit[5];
+
 
     // Start is called before the first frame update
     void Start()
@@ -32,6 +34,15 @@ public class CannonController : MonoBehaviour
     {
         AimConnon();
         FireCannon();
+
+        int rayColliders = Physics.RaycastNonAlloc(transform.position, transform.forward, m_Results, Mathf.Infinity, LayerMask.GetMask("Targets"));
+        //m_Results[i].collider.gameObject.GetComponent<Renderer>().material.color
+
+
+        for (int i = 0; i < rayColliders; i++)
+        {
+            Debug.Log("Hit " + m_Results[i].collider.gameObject.name);
+        }
     }
 
     private void AimConnon()
