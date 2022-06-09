@@ -2,12 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
 public class CannonBall : MonoBehaviour
 {
-    private Rigidbody cannonBallRigidBody;
+    protected Rigidbody cannonBallRigidBody;
 
 
-    [SerializeField] private Animator cannonBallAnimator;
+    [SerializeField] protected Animator cannonBallAnimator;
     [SerializeField] private float explosionRadius = 10.0f;
     [SerializeField] private float explosionForce = 12.0f;
     [SerializeField] private float explosionModifier = 1.0f;
@@ -17,7 +19,6 @@ public class CannonBall : MonoBehaviour
     private void Awake()
     {
         cannonBallRigidBody = GetComponent<Rigidbody>();
-
     }
 
     private void Update()
@@ -25,13 +26,13 @@ public class CannonBall : MonoBehaviour
         
     }
 
-    public void SetUp(Vector3 firForce)
+    public virtual void SetUp(Vector3 firForce)
     {
         cannonBallRigidBody.AddForce(firForce, ForceMode.Impulse);
         cannonBallRigidBody.angularVelocity = new Vector3(Random.Range(-10, 10), Random.Range(-10, 10), Random.Range(-10, 10));
     }
 
-    private void OnCollisionEnter(Collision collision)
+    protected virtual void OnCollisionEnter(Collision collision)
     {
         //rotate around the collisition cantact point
         transform.rotation = Quaternion.FromToRotation(transform.up, collision.GetContact(0).normal) * transform.rotation;
