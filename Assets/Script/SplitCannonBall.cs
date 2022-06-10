@@ -54,7 +54,9 @@ public class SplitCannonBall : CannonBall
         ball2.SetUp(ball2Forward);
         //trigger the special used animation
         cannonBallAnimator.SetTrigger(specialUsedHash);
-        enabled = false;
+
+        //enabled = false;
+        Destroy(gameObject);
 
 
     }
@@ -65,5 +67,13 @@ public class SplitCannonBall : CannonBall
 
         cannonBallAnimator.SetTrigger(specialAvailableHash);
 
+
+    }
+
+    protected virtual void OnCollisionEnter(Collision collision)
+    {
+        base.OnCollisionEnter(collision);
+
+        enabled = false;
     }
 }
